@@ -7,14 +7,15 @@ public class FamilyDetailsDTO {
 
     private Long id;
     private String fullName;
-    private RelationTypeDTO relationType;
+    private Long customer;
+    private Long relationType;
 
     public FamilyDetailsDTO() {
     }
     public FamilyDetailsDTO(FamilyDetails familyDetails) {
         this.id = familyDetails.getId();
         this.fullName = familyDetails.getFullName();
-        this.relationType = FamilyRelationDTOMapper.toRelationTypeDTO(familyDetails.getRelationTypeId());
+        this.relationType = FamilyRelationDTOMapper.toRelationTypeDTO(familyDetails.getRelationTypeId()).getId();
     }
 
     public Long getId() {
@@ -33,11 +34,11 @@ public class FamilyDetailsDTO {
         this.fullName = fullName;
     }
 
-    public RelationTypeDTO getRelationType() {
+    public Long getRelationType() {
         return relationType;
     }
 
-    public void setRelationType(RelationTypeDTO relationType) {
-        this.relationType = relationType;
+    public void setRelationType(Long relationTypeId) {
+        this.relationType = relationTypeId;
     }
 }
