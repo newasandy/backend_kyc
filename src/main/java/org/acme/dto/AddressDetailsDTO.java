@@ -1,5 +1,6 @@
 package org.acme.dto;
 
+import org.acme.dto.dtoMapper.LocationDTOMapper;
 import org.acme.model.AddressDetails;
 import org.acme.model.AddressType;
 
@@ -7,11 +8,10 @@ public class AddressDetailsDTO {
 
     private Long id;
     private Long customerId;
-    private Long countryId;
-    private Long districtId;
-    private Long provinceId;
-    private Long localLevelId;
-
+    private CountryDTO countryId;
+    private DistrictDTO districtId;
+    private ProvinceDTO provinceId;
+    private LocalLevelDTO localLevelId;
     private String tole;
     private int ward;
     private String houseNumber;
@@ -22,10 +22,10 @@ public class AddressDetailsDTO {
     public AddressDetailsDTO(AddressDetails addressDetails) {
         this.id = addressDetails.getId();
         this.customerId = addressDetails.getCustomerId().getId();
-        this.countryId = addressDetails.getCountryId().getId();
-        this.districtId = addressDetails.getDistrictId().getId();
-        this.provinceId = addressDetails.getProvinceId().getId();
-        this.localLevelId = addressDetails.getLocalLevelId().getId();
+        this.countryId = LocationDTOMapper.countryEntityToDTO(addressDetails.getCountryId());
+        this.districtId = LocationDTOMapper.districtEntityToDTO(addressDetails.getDistrictId());
+        this.provinceId = LocationDTOMapper.provinceEntityToDTO(addressDetails.getProvinceId());
+        this.localLevelId = LocationDTOMapper.localLevelEntityToDTO(addressDetails.getLocalLevelId());
         this.tole = addressDetails.getTole();
         this.ward = addressDetails.getWard();
         this.houseNumber = addressDetails.getHouseNumber();
@@ -48,35 +48,35 @@ public class AddressDetailsDTO {
         this.customerId = customerId;
     }
 
-    public Long getCountryId() {
+    public CountryDTO getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Long countryId) {
+    public void setCountryId(CountryDTO countryId) {
         this.countryId = countryId;
     }
 
-    public Long getDistrictId() {
+    public DistrictDTO getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(Long districtId) {
+    public void setDistrictId(DistrictDTO districtId) {
         this.districtId = districtId;
     }
 
-    public Long getProvinceId() {
+    public ProvinceDTO getProvinceId() {
         return provinceId;
     }
 
-    public void setProvinceId(Long provinceId) {
+    public void setProvinceId(ProvinceDTO provinceId) {
         this.provinceId = provinceId;
     }
 
-    public Long getLocalLevelId() {
+    public LocalLevelDTO getLocalLevelId() {
         return localLevelId;
     }
 
-    public void setLocalLevelId(Long localLevelId) {
+    public void setLocalLevelId(LocalLevelDTO localLevelId) {
         this.localLevelId = localLevelId;
     }
 

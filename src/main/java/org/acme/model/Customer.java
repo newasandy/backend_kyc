@@ -3,6 +3,7 @@ package org.acme.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Customer extends BaseEntity{
     private String firstName;
 
     @Column(name = "middle_name", length = 100)
-    private String middle_name;
+    private String middleName;
 
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
@@ -40,19 +41,19 @@ public class Customer extends BaseEntity{
     @Column(name = "marital_status", nullable = false)
     private boolean maritalStatus;
 
-    @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL)
-    private List<AddressDetails> addressDetails;
+    @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AddressDetails> addressDetails = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customerId",cascade = CascadeType.ALL)
-    private List<FamilyDetails> familyDetails;
+    @OneToMany(mappedBy = "customerId",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FamilyDetails> familyDetails = new ArrayList<>();
 
-    @OneToOne(mappedBy = "customerId", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customerId", cascade = CascadeType.ALL, orphanRemoval = true)
     private IdentityDetails identityDetails;
 
-    @OneToOne(mappedBy = "customerId", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customerId", cascade = CascadeType.ALL, orphanRemoval = true)
     private FinancialDetails financialDetails;
 
-    @OneToOne(mappedBy = "customerId" , cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customerId" , cascade = CascadeType.ALL, orphanRemoval = true)
     private CustomerKyc customerKyc;
 
     public Customer() {
@@ -74,12 +75,12 @@ public class Customer extends BaseEntity{
         this.firstName = firstName;
     }
 
-    public String getMiddle_name() {
-        return middle_name;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMiddle_name(String middle_name) {
-        this.middle_name = middle_name;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getLastName() {

@@ -8,14 +8,15 @@ public class FamilyDetailsDTO {
     private Long id;
     private String fullName;
     private Long customer;
-    private Long relationType;
+    private RelationTypeDTO relationType;
 
     public FamilyDetailsDTO() {
     }
     public FamilyDetailsDTO(FamilyDetails familyDetails) {
         this.id = familyDetails.getId();
         this.fullName = familyDetails.getFullName();
-        this.relationType = FamilyRelationDTOMapper.toRelationTypeDTO(familyDetails.getRelationTypeId()).getId();
+        this.customer = familyDetails.getCustomerId().getId();
+        this.relationType = FamilyRelationDTOMapper.toRelationTypeDTO(familyDetails.getRelationTypeId());
     }
 
     public Long getId() {
@@ -34,11 +35,19 @@ public class FamilyDetailsDTO {
         this.fullName = fullName;
     }
 
-    public Long getRelationType() {
+    public Long getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Long customer) {
+        this.customer = customer;
+    }
+
+    public RelationTypeDTO getRelationType() {
         return relationType;
     }
 
-    public void setRelationType(Long relationTypeId) {
-        this.relationType = relationTypeId;
+    public void setRelationType(RelationTypeDTO relationType) {
+        this.relationType = relationType;
     }
 }

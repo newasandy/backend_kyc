@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "address_details")
 public class AddressDetails extends BaseEntity{
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "customer_id",nullable = false)
     private Customer customerId;
 

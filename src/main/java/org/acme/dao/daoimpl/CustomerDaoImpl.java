@@ -10,8 +10,7 @@ import org.acme.model.Customer;
 @ApplicationScoped
 public class CustomerDaoImpl extends BaseDaoImpl<Customer, Long> implements CustomerDao {
     public CustomerDaoImpl() {
-        // Required by Quarkus CDI
-        super(Customer.class, null); // or pass a dummy/null EM; be cautious if BaseDaoImpl uses it immediately
+        super(Customer.class, null);
     }
 
     @Inject

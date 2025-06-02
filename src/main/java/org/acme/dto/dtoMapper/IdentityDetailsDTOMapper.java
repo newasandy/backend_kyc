@@ -10,11 +10,11 @@ public class IdentityDetailsDTOMapper {
         return new IdentityDTO(entity);
     }
 
-    public static IdentityDetails toEntity(IdentityDTO dto) {
+    public static IdentityDetails identityDetailsDTOtoEntity(IdentityDTO dto , Customer customer) {
         if (dto == null) return null;
 
         IdentityDetails entity = new IdentityDetails();
-        entity.setId(dto.getId());
+        entity.setCustomerId(customer);
         entity.setDocumentType(dto.getDocumentType());
         entity.setNationality(dto.getNationality());
         entity.setBirthPlace(dto.getBirthPlace());
@@ -26,9 +26,4 @@ public class IdentityDetailsDTOMapper {
         return entity;
     }
 
-    public static IdentityDetails toEntity(IdentityDTO dto, Customer customer) {
-        IdentityDetails entity = toEntity(dto);
-        entity.setCustomerId(customer);
-        return entity;
-    }
 }

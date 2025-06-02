@@ -7,40 +7,29 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.dao.CustomerDao;
-import org.acme.dao.CustomerKycDao;
-import org.acme.model.Customer;
-import org.acme.model.CustomerKyc;
+import org.acme.dto.CustomerDTO;
+import org.acme.service.CustomerService;
 
 @Path("/customer")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CustomerAPI {
     @Inject
-    private CustomerDao customerDao;
-
-    @Inject
-    private CustomerKycDao customerKycDao;
+    private CustomerService customerService;
 
     @POST
-    @Path("/addPersonalInfo")
-    public Response addPersonalInfo(Customer customer) {
-        if (customerDao.save(customer)) {
-            CustomerKyc customerKyc = new CustomerKyc();
-            customerKyc.setCustomerId(customer);
-            customerKyc.setStatus(false);
-            if (customerKycDao.save(customerKyc)) {
-                return Response.status(Response.Status.CREATED).entity(customer).build();
+    @Path("/addCustomer")
+    public Response addPersonalInfo(CustomerDTO customerDTO) {
+        System.out.println(customerDTO);
+        try{
+
+            if (!customerService.createNewCustomer(customerDTO)){
+                System.out.println("here");
+                return Response.status(Response.Status.UNAUTHORIZED).entity("Create Failed").build();
             }
-            else{
-                return Response.status(Response.Status.NOT_FOUND)
-                        .entity("Kyc was not added")
-                        .build();
-            }
-        } else {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Customer was not added")
-                    .build();
+        }catch (Exception e){
+            System.err.println(e);
         }
+        return Response.ok("Create customer account successfully").build();
     }
 }

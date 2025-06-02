@@ -34,21 +34,21 @@ public class LocationAPI {
     @Path("/province")
     public List<ProvinceDTO> provinces(){
         List<Province> provinceList = provinceDao.findAll();
-        return LocationDTOMapper.provinceEntityToDTO(provinceList);
+        return LocationDTOMapper.provinceEntityListToDTOList(provinceList);
     }
 
     @POST
     @Path("/district/{id}")
     public List<DistrictDTO> districts(@PathParam("id") Long id){
         List<District> districtList = districtDao.districtList(id);
-        return LocationDTOMapper.districtEntityToDTO(districtList);
+        return LocationDTOMapper.districtEntityListToDTOList(districtList);
     }
 
     @POST
     @Path("/locallevel/{id}")
     public List<LocalLevelDTO> localLevel(@PathParam("id") Long id){
         List<LocalLevel> localLevelList = localLevelDao.localLevelList(id);
-        return LocationDTOMapper.localLevelEntityToDTO(localLevelList);
+        return LocationDTOMapper.localLevelEntityListToDTOList(localLevelList);
     }
 
 }
