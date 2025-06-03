@@ -15,18 +15,26 @@ public class AddressDetailsDTOMapper {
         return addressDetails.stream().map(AddressDetailsDTO::new).collect(Collectors.toList());
     }
 
-    public static AddressDetails addressDTOtoEntity(AddressDetailsDTO addressDetailsDTO, Customer customer, Country country, Province province, District district, LocalLevel localLevel){
+    public static AddressDetails addressDTOtoEntity(AddressDetailsDTO addressDetailsDTO, Customer customer){
         AddressDetails addressDetails = new AddressDetails();
         addressDetails.setId(addressDetailsDTO.getId());
         addressDetails.setCustomerId(customer);
-        addressDetails.setCountryId(country);
-        addressDetails.setProvinceId(province);
-        addressDetails.setDistrictId(district);
-        addressDetails.setLocalLevelId(localLevel);
+
         addressDetails.setTole(addressDetailsDTO.getTole());
         addressDetails.setWard(addressDetailsDTO.getWard());
         addressDetails.setHouseNumber(addressDetailsDTO.getHouseNumber());
         addressDetails.setAddressType(addressDetailsDTO.getAddressType());
+
+        Country country1 = LocationDTOMapper.countryDTOtoEntity(addressDetailsDTO.getCountryId());
+        Province province1 = LocationDTOMapper.provinceDTOtoEntity(addressDetailsDTO.getProvinceId());
+        District district1 = LocationDTOMapper.districtDTOtoEntity(addressDetailsDTO.getDistrictId());
+        LocalLevel localLevel1 = LocationDTOMapper.localLevelDTOtoEntity(addressDetailsDTO.getLocalLevelId());
+
+        addressDetails.setCountryId(country1);
+        addressDetails.setProvinceId(province1);
+        addressDetails.setDistrictId(district1);
+        addressDetails.setLocalLevelId(localLevel1);
+
         return addressDetails;
     }
 

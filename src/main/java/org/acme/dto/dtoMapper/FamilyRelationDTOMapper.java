@@ -2,12 +2,9 @@ package org.acme.dto.dtoMapper;
 
 import org.acme.dto.FamilyDetailsDTO;
 import org.acme.dto.RelationTypeDTO;
-import org.acme.model.AddressDetails;
 import org.acme.model.Customer;
 import org.acme.model.FamilyDetails;
 import org.acme.model.RelationType;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,11 +34,12 @@ public class FamilyRelationDTOMapper {
         return familyDetails.stream().map(FamilyDetailsDTO::new).collect(Collectors.toList());
     }
 
-    public static FamilyDetails familyDetailsDTOtoEntity(FamilyDetailsDTO familyDetailsDTO, Customer customer, RelationType relationType){
+    public static FamilyDetails familyDetailsDTOtoEntity(FamilyDetailsDTO familyDetailsDTO, Customer customer){
         FamilyDetails familyDetails = new FamilyDetails();
         familyDetails.setCustomerId(customer);
         familyDetails.setFullName(familyDetailsDTO.getFullName());
-        familyDetails.setRelationTypeId(relationType);
+        RelationType relationType1 = relationTypeDTOtoEntity(familyDetailsDTO.getRelationType());
+        familyDetails.setRelationTypeId(relationType1);
         return familyDetails;
     }
 
