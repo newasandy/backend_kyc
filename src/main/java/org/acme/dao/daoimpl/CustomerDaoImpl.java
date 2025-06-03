@@ -17,4 +17,11 @@ public class CustomerDaoImpl extends BaseDaoImpl<Customer, Long> implements Cust
     public CustomerDaoImpl(EntityManager entityManager) {
         super(Customer.class, entityManager);
     }
+
+    @Override
+    public Customer getByIdentityDetails(String identityNumber) {
+        return entityManager.createQuery("SELECT c FROM Customer c JOIN IdentityDetails id ON id.customerId.id = c.id WHERE id.identityNumber = :identityNumber",Customer.class)
+                .setParameter("identityNumber",identityNumber)
+                .getSingleResult();
+    }
 }

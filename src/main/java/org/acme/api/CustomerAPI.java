@@ -28,11 +28,22 @@ public class CustomerAPI {
     @Path("/addCustomer")
     public Response addPersonalInfo(CustomerDTO customerDTO) {
         try{
+            String identityNUmber = customerDTO.getIdentityDetails().getIdentityNumber();
+            Customer customer = customerDao.getByIdentityDetails(identityNUmber);
+            if (customer != null){
+                return Response.status(Response.Status.CONFLICT).entity("Customer Already Exist").build();
+            }
             if (!customerService.createNewCustomer(customerDTO)){
                 return Response.status(Response.Status.UNAUTHORIZED).entity("Create Failed").build();
             }
-        }catch (Exception e){
-            System.err.println(e);
+        }catch (IllegalArgumentException e){
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Invalid input: " + e.getMessage())
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("An internal server error occurred")
+                    .build();
         }
         return Response.ok("Create customer account successfully").build();
     }
